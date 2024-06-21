@@ -29,12 +29,20 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     )
                 }*/
-
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                        Greeting("Android")
-                }
+                MyApp(modifier = Modifier.fillMaxSize())
             }
         }
+    }
+}
+
+
+@Composable
+fun MyApp(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Greeting("Android")
     }
 }
 
@@ -52,6 +60,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     ComposePracticeTheme {
-        Greeting("Android")
+        MyApp(modifier=Modifier.fillMaxSize())
     }
 }
