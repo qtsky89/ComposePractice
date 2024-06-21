@@ -31,7 +31,9 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     )
                 }*/
-                MyApp()
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    MyApp(modifier=Modifier.padding(innerPadding))
+                }
             }
         }
     }
