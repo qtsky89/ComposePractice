@@ -93,7 +93,7 @@ fun OnboardingScreen(onContinueClicked: () -> Unit ,modifier: Modifier = Modifie
 }
 
 @Composable
-private fun Greetings(modifier: Modifier = Modifier, names: List<String> = List(1000) {"$it"}) {
+private fun Greetings(modifier: Modifier = Modifier, names: List<String> = List(1000) {"Jack $it"}) {
     LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
         items(items = names) { name ->
             Greeting(name = name)
