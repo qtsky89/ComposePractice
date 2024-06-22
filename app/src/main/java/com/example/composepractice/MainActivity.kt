@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import com.example.composepractice.ui.theme.ComposePracticeTheme
 
@@ -92,14 +96,20 @@ private fun Greetings(modifier: Modifier = Modifier, names: List<String> = List(
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val extraPadding = if (expanded) 48.dp else 0.dp
+    val extraPadding by animateDpAsState (
+        if (expanded) 48.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
 
     Surface(color=MaterialTheme.colorScheme.primary,
         modifier = modifier.padding(vertical = 4.dp, horizontal=8.dp)) {
         Row(modifier = Modifier.padding(24.dp)) {
             Column(modifier = Modifier
                 .weight(1f)
-                .padding(bottom = extraPadding)) {
+                .padding(bottom = extraPadding.coerceAtLeast(0.dp))) {
                 Text(text = "hello ")
                 Text(text = name)
             }
@@ -123,5 +133,13 @@ fun GreetingPreview() {
 fun OnboardingPreview() {
     ComposePracticeTheme {
         OnboardingScreen(onContinueClicked = {})
+    }
+}
+
+@Preview
+@Composable
+fun MyAppPreview() {
+    ComposePracticeTheme {
+        MyApp(Modifier.fillMaxSize())
     }
 }
